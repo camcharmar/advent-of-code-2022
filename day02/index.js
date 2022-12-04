@@ -1,69 +1,25 @@
-import input from "./input.js";
+import { readFileSync } from "node:fs";
+import part1 from "./part1.js";
+import part2 from "./part2.js";
 
-const rock = ["X", "A"];
-const paper = ["Y", "B"];
-const scissors = ["Z", "C"];
+const realInputString = readFileSync(new URL("./input.txt", import.meta.url))
+  .toString()
+  .trim();
+const testInputString = `A Y
+B X
+C Z`;
 
-const part1 = input.reduce((acc, game) => {
-  if (rock.includes(game[0])) {
-    if (rock.includes(game[1])) {
-      return acc + 3 + 1;
-    } else if (paper.includes(game[1])) {
-      return acc + 6 + 2;
-    } else if (scissors.includes(game[1])) {
-      return acc + 0 + 3;
-    }
-  } else if (paper.includes(game[0])) {
-    if (rock.includes(game[1])) {
-      return acc + 0 + 1;
-    } else if (paper.includes(game[1])) {
-      return acc + 3 + 2;
-    } else if (scissors.includes(game[1])) {
-      return acc + 6 + 3;
-    }
-  } else if (scissors.includes(game[0])) {
-    if (rock.includes(game[1])) {
-      return acc + 6 + 1;
-    } else if (paper.includes(game[1])) {
-      return acc + 0 + 2;
-    } else if (scissors.includes(game[1])) {
-      return acc + 3 + 3;
-    }
-  }
-}, 0);
+const parseInput = (dataString) =>
+  dataString.split(/\r?\n/).map((line) => line.split(" "));
 
-console.log(`Part 1: ${part1}`);
+const input = {
+  test: parseInput(testInputString),
+  real: parseInput(realInputString),
+};
 
-const part2 = input.reduce((acc, game) => {
-  switch (game[0]) {
-    case "A": //opponent rock
-      switch (game[1]) {
-        case "X": // lose
-          return acc + 0 + 3;
-        case "Y": // draw
-          return acc + 3 + 1;
-        case "Z": // win
-          return acc + 6 + 2;
-      }
-    case "B": //opponent paper
-      switch (game[1]) {
-        case "X": // lose
-          return acc + 0 + 1;
-        case "Y": // draw
-          return acc + 3 + 2;
-        case "Z": // win
-          return acc + 6 + 3;
-      }
-    case "C": //opponent scissors
-      switch (game[1]) {
-        case "X": // lose
-          return acc + 0 + 2;
-        case "Y": // draw
-          return acc + 3 + 3;
-        case "Z": // win
-          return acc + 6 + 1;
-      }
-  }
-}, 0);
-
-console.log(`Part 2: ${part2}`);
+console.log("===== PART 1 =====");
+part1 && console.log(`Test: ${part1(input.test)}`);
+part2 && console.log(`Real: ${part1(input.real)}`);
+console.log("===== PART 2 =====");
+part1 && console.log(`Test: ${part2(input.test)}`);
+part2 && console.log(`Real: ${part2(input.real)}`);

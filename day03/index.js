@@ -1,27 +1,27 @@
-import input from "./input.js";
+import { readFileSync } from "node:fs";
+import part1 from "./part1.js";
+import part2 from "./part2.js";
 
-const priority = (letter) =>
-  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    .split("")
-    .indexOf(letter) + 1;
+const realInputString = readFileSync(new URL("./input.txt", import.meta.url))
+  .toString()
+  .trim();
+const testInputString = `vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw`;
 
-const part1 = input.reduce((acc, sack) => {
-  const one = sack.substring(0, sack.length / 2).split("");
-  const two = sack.substring(sack.length / 2).split("");
+const parseInput = (dataString) => dataString.split(/\r?\n/);
 
-  const common = one.find((item) => two.includes(item));
-  return acc + priority(common);
-}, 0);
+const input = {
+  test: parseInput(testInputString),
+  real: parseInput(realInputString),
+};
 
-let part2 = 0;
-for (let i = 0; i < input.length - 2; i += 3) {
-  const one = input[i].split("");
-  const two = input[i + 1].split("");
-  const three = input[i + 2].split("");
-
-  const common = one.find((item) => two.includes(item) && three.includes(item));
-  part2 += priority(common);
-}
-
-console.log(part1);
-console.log(part2);
+console.log("===== PART 1 =====");
+part1 && console.log(`Test: ${part1(input.test)}`);
+part2 && console.log(`Real: ${part1(input.real)}`);
+console.log("===== PART 2 =====");
+part1 && console.log(`Test: ${part2(input.test)}`);
+part2 && console.log(`Real: ${part2(input.real)}`);

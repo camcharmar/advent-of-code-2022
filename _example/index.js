@@ -7,7 +7,7 @@ const realInputString = readFileSync(new URL("./input.txt", import.meta.url))
   .trim();
 const testInputString = `test`;
 
-const parseInput = (dataString) => dataString.split("\n");
+const parseInput = (dataString) => dataString.split(/\r?\n/).map(Number);
 
 const input = {
   test: parseInput(testInputString),
