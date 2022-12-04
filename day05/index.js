@@ -1,21 +1,22 @@
-import getInput from "./input.js";
+import { readFileSync } from "node:fs";
+import part1 from "./part1.js";
+import part2 from "./part2.js";
 
-const solve = (isTesting) => {
-  const input = getInput(isTesting);
+const realInputString = readFileSync(new URL("./input.txt", import.meta.url))
+  .toString()
+  .trim();
+const testInputString = `test`;
 
-  const part1 = input.reduce((acc, row) => {
-    // Part 1 solution
-  }, 0);
+const parseInput = (dataString) => dataString.split("\n");
 
-  const part2 = input.reduce((acc, row) => {
-    // Part 1 solution
-  }, 0);
-
-  (part1 || part2) &&
-    console.log(isTesting ? "===== TEST =====" : "===== REAL =====");
-  part1 && console.log(`Part 1: ${part1}`);
-  part2 && console.log(`Part 2: ${part2}`);
+const input = {
+  test: parseInput(testInputString),
+  real: parseInput(realInputString),
 };
 
-solve(true);
-solve(false);
+console.log("===== PART 1 =====");
+part1 && console.log(`Test: ${part1(input.test)}`);
+part2 && console.log(`Real: ${part1(input.real)}`);
+console.log("===== PART 2 =====");
+part1 && console.log(`Test: ${part2(input.test)}`);
+part2 && console.log(`Real: ${part2(input.real)}`);
