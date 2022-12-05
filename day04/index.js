@@ -2,9 +2,9 @@ import { readFileSync } from "node:fs";
 import part1 from "./part1.js";
 import part2 from "./part2.js";
 
-const realInputString = readFileSync(new URL("./input.txt", import.meta.url))
-  .toString()
-  .trim();
+const realInputString = readFileSync(
+  new URL("./input.txt", import.meta.url)
+).toString();
 const testInputString = `2-4,6-8
 2-3,4-5
 5-7,7-9
@@ -17,14 +17,9 @@ const parseInput = (dataString) =>
     .split(/\r?\n/)
     .map((pair) => pair.split(",").map((elf) => elf.split("-").map(Number)));
 
-const input = {
-  test: parseInput(testInputString),
-  real: parseInput(realInputString),
-};
-
 console.log("===== PART 1 =====");
-part1 && console.log(`Test: ${part1(input.test)}`);
-part2 && console.log(`Real: ${part1(input.real)}`);
+part1 && console.log(`Test: ${part1(parseInput(testInputString))}`);
+part2 && console.log(`Real: ${part1(parseInput(realInputString))}`);
 console.log("===== PART 2 =====");
-part1 && console.log(`Test: ${part2(input.test)}`);
-part2 && console.log(`Real: ${part2(input.real)}`);
+part1 && console.log(`Test: ${part2(parseInput(testInputString))}`);
+part2 && console.log(`Real: ${part2(parseInput(realInputString))}`);
