@@ -1,0 +1,23 @@
+import { readFileSync } from "node:fs";
+import { parse } from "node:path";
+import part1 from "./part1.js";
+import part2 from "./part2.js";
+
+const realInputString = readFileSync(
+  new URL("./input.txt", import.meta.url)
+).toString();
+const testInputString = `30373
+25512
+65332
+33549
+35390`;
+
+const parseInput = (dataString) =>
+  dataString.split(/\r?\n/).map((row) => row.split("").map(Number));
+
+console.log("===== PART 1 =====");
+part1 && console.log(`Test: ${part1(parseInput(testInputString))}`);
+part2 && console.log(`Real: ${part1(parseInput(realInputString))}`);
+console.log("===== PART 2 =====");
+part1 && console.log(`Test: ${part2(parseInput(testInputString))}`);
+part2 && console.log(`Real: ${part2(parseInput(realInputString))}`);
